@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import "./index.css";
 import Root from "./components/Root";
 import configureStore from "./configureStore";
@@ -9,7 +10,9 @@ const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root store={store} />
+    <Provider store={store}>
+      <Root />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,10 +1,24 @@
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import axios from "axios";
 
-export const get = (endpoint) =>
-  delay(1000).then(() => console.log("GET", endpoint));
+export const get = (endpoint, headers, params) => {
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers,
+    params,
+  });
+  return api.get(endpoint);
+};
 
-export const post = (endpoint) =>
-  delay(1000).then(() => console.log("POST", endpoint));
+export const post = (endpoint, headers, data) => {
+  return axios.post(endpoint, data, {
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers,
+  });
+};
 
-export const update = (endpoint) =>
-  delay(1000).then(() => console.log("UPDATE", endpoint));
+export const put = (endpoint, headers, data) => {
+  return axios.put(endpoint, data, {
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers,
+  });
+};

@@ -1,27 +1,39 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import Home from "./Home";
 import Signup from "./Signup";
 import Signin from "./Signin";
 import CategoryDetail from "./CategoryDetail";
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={Signin} />
-        <Route path="/category/:id" component={CategoryDetail} />
-        <Route path="/" component={Home} />
-      </Switch>
-    </Router>
-  </Provider>
+const Root = ({ isLoggedIn }) => (
+  <Router>
+    <Switch>
+      <Route exact path="/signup">
+        {isLoggedIn ? <Redirect to="/" /> : <Signup />}
+      </Route>
+      <Route exact path="/signin">
+        {isLoggedIn ? <Redirect to="/" /> : <Signin />}
+      </Route>
+      <Route exact path="/category/:id" component={CategoryDetail} />
+      <Route exact path="/" component={Home} />
+      <Route render={() => <Redirect to="/" />} />
+    </Switch>
+  </Router>
 );
 
 Root.propTypes = {
-  store: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
-export default Root;
+const mapStateToProps = ({ user }) => ({
+  isLoggedIn: user.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Root);
