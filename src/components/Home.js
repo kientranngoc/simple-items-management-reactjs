@@ -19,7 +19,7 @@ class Home extends React.Component {
     return (
       <div>
         <UserPanelContainer />
-        <span>Home page</span>
+        <h1>Home page</h1>
       </div>
     );
   }
