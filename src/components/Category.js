@@ -6,7 +6,9 @@ const Category = ({ name, description, created, updated }) => {
     <div>
       <h2>{name}</h2>
       <span>{description}</span>
+      <br />
       <span>{created}</span>
+      <br />
       <span>{updated}</span>
     </div>
   );

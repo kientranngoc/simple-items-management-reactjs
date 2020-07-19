@@ -1,12 +1,11 @@
 import axios from "axios";
 
 export const get = (endpoint, headers, params) => {
-  const api = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
-    headers,
+  return axios.get(endpoint, {
     params,
+    headers,
+    baseURL: process.env.REACT_APP_BASE_URL,
   });
-  return api.get(endpoint);
 };
 
 export const post = (endpoint, headers, data) => {
