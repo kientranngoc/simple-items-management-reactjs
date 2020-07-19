@@ -1,6 +1,7 @@
 import {
   SIGNIN as SIGNIN_ACTION,
   SIGNUP as SIGNUP_ACTION,
+  LOGOUT as LOGOUT_ACTION,
 } from "../constants/actions";
 import {
   SIGNIN as SIGNIN_ENDPOINT,
@@ -18,4 +19,8 @@ export const signup = (payload) => ({
 export const signin = (payload) => ({
   type: SIGNIN_ACTION,
   promise: post(SIGNIN_ENDPOINT, baseHeaders, payload),
+});
+
+export const logout = () => ({
+  type: LOGOUT_ACTION,
 });
