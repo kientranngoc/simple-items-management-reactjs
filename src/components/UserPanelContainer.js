@@ -15,6 +15,7 @@ class UserPanelContainer extends React.Component {
   render() {
     return (
       <UserPanel
+        isLoggedIn={this.props.isLoggedIn}
         name={this.props.info ? this.props.info.name : ""}
         onLogoutClick={this.onLogoutClick}
       />
@@ -24,6 +25,7 @@ class UserPanelContainer extends React.Component {
 
 UserPanelContainer.propTypes = {
   info: PropTypes.object,
+  isLoggedIn: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
 };
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import SignupForm from "./SignupForm";
-import { signup } from "../actions/user";
+import SigninForm from "./SigninForm";
+import { signin } from "../actions/user";
 import { setToken } from "../libs/utils/auth";
 
-class SignupFormContainer extends React.Component {
+class SigninFormContainer extends React.Component {
   state = {
     message: "",
   };
@@ -17,9 +17,7 @@ class SignupFormContainer extends React.Component {
     event.preventDefault();
     this.resetMessage();
     this.props
-      .signup({
-        name: event.target.name.value,
-        email: event.target.email.value,
+      .signin({
         username: event.target.username.value,
         password: event.target.password.value,
       })
@@ -51,7 +49,7 @@ class SignupFormContainer extends React.Component {
   };
   render() {
     return (
-      <SignupForm
+      <SigninForm
         message={this.state.message}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
@@ -60,8 +58,8 @@ class SignupFormContainer extends React.Component {
   }
 }
 
-SignupFormContainer.propTypes = {
-  signup: PropTypes.func.isRequired,
+SigninFormContainer.propTypes = {
+  signin: PropTypes.func.isRequired,
 };
 
-export default connect(null, { signup })(SignupFormContainer);
+export default connect(null, { signin })(SigninFormContainer);

@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_CURRENT_USER_SUCCESS: {
       return {
         ...state,
-        info: action.payload,
+        info: action.payload.data,
       };
     }
 

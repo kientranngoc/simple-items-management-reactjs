@@ -23,7 +23,7 @@ const UserPanel = ({ isLoggedIn, name, onLogoutClick }) => {
 
 UserPanel.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onLogoutClick: PropTypes.func.isRequired,
 };
 
