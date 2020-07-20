@@ -2,9 +2,10 @@ import {
   FETCH_ITEMS as FETCH_ITEMS_ACTION,
   ADD_ITEM as ADD_ITEM_ACTION,
   UPDATE_ITEM as UPDATE_ITEM_ACTION,
+  DELETE_ITEM as DELETE_ITEM_ACTION,
 } from "../constants/actions";
 import { FETCH_CATEGORIES as CATEGORIES_ENDPOINT } from "../constants/endpoints";
-import { get, post, put } from "../libs/utils/api";
+import { get, post, put, deleteAPI } from "../libs/utils/api";
 
 const baseHeaders = { "content-type": "application/json" };
 
@@ -39,6 +40,17 @@ export const updateItem = (accessToken, categoryId, itemId, payload) => {
       CATEGORIES_ENDPOINT + `/${categoryId}/items/${itemId}`,
       headers,
       payload
+    ),
+  };
+};
+
+export const deleteItem = (accessToken, categoryId, itemId) => {
+  const headers = { ...baseHeaders, authorization: `Bearer ${accessToken}` };
+  return {
+    type: DELETE_ITEM_ACTION,
+    promise: deleteAPI(
+      CATEGORIES_ENDPOINT + `/${categoryId}/items/${itemId}`,
+      headers
     ),
   };
 };

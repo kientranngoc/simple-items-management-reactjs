@@ -21,3 +21,10 @@ export const put = (endpoint, headers, data) => {
     headers,
   });
 };
+
+export const deleteAPI = (endpoint, headers) => {
+  return axios.delete(endpoint, {
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers,
+  });
+};

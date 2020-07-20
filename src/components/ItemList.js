@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Item from "./Item";
 
-const ItemList = ({ items, currentUserId, onEditClick, onDeleteClick }) => {
+const ItemList = ({ items, userId, onEditClick, onDeleteClick }) => {
   if (items) {
     return (
       <div>
@@ -16,7 +16,7 @@ const ItemList = ({ items, currentUserId, onEditClick, onDeleteClick }) => {
             price={item.price}
             created={item.created}
             updated={item.updated}
-            isOwner={currentUserId === item.user_id}
+            isOwner={userId === item.user_id}
             onEditClick={onEditClick}
             onDeleteClick={onDeleteClick}
           />
@@ -30,7 +30,7 @@ const ItemList = ({ items, currentUserId, onEditClick, onDeleteClick }) => {
 
 ItemList.propTypes = {
   items: PropTypes.array,
-  currentUserId: PropTypes.number,
+  userId: PropTypes.number,
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
 };

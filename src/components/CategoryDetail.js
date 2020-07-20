@@ -5,7 +5,7 @@ import UserPanelContainer from "./UserPanelContainer";
 import ItemList from "./ItemList";
 import AddItemFormContainer from "./AddItemFormContainer";
 import { fetchCategory } from "../actions/category";
-import { fetchItems } from "../actions/item";
+import { fetchItems, deleteItem } from "../actions/item";
 
 class CategoryDetail extends React.Component {
   state = {
@@ -13,14 +13,21 @@ class CategoryDetail extends React.Component {
     items: [],
   };
   // Class Properties , required for binding bind a function to a component instance
-  onEditClick = (itemId) => {
-    console.log(itemId);
-  };
+  onEditClick = (itemId) => {};
   onDeleteClick = (itemId) => {
-    console.log(itemId);
+    const categoryId = this.props.match.params.id;
+    this.props
+      .deleteItem(this.props.accessToken, categoryId, itemId)
+      .then((response) => {
+        if (response.success) {
+          this.setState((state) => ({
+            ...state,
+            items: state.items.filter((item) => item.id !== itemId),
+          }));
+        }
+      });
   };
   onAddItemSuccess = (item) => {
-    console.log(this);
     this.setState((state) => {
       return {
         ...state,
@@ -65,6 +72,7 @@ class CategoryDetail extends React.Component {
         )}
         <ItemList
           items={this.state.items}
+          userId={this.props.userId}
           onEditClick={this.onEditClick}
           onDeleteClick={this.onDeleteClick}
         />
@@ -74,9 +82,21 @@ class CategoryDetail extends React.Component {
 }
 
 CategoryDetail.propTypes = {
+  accessToken: PropTypes.string,
+  userId: PropTypes.number,
   match: PropTypes.object.isRequired,
   fetchCategory: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };
 
-export default connect(null, { fetchCategory, fetchItems })(CategoryDetail);
+const mapStateToProps = ({ user }) => ({
+  accessToken: user.accessToken,
+  userId: user.info && user.info.id,
+});
+
+export default connect(mapStateToProps, {
+  fetchCategory,
+  fetchItems,
+  deleteItem,
+})(CategoryDetail);
