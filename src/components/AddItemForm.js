@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 const AddItemForm = ({ message, onChange, onSubmit }) => {
   return (
     <div>
+      <h2>Add new item</h2>
       <span>{message}</span>
       <form onSubmit={onSubmit}>
         <div>
-          <label htmlFor="name">Username</label>
+          <label htmlFor="name">Name</label>
           <input id="name" type="text" onChange={onChange} />
         </div>
         <div>

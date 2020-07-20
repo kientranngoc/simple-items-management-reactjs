@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Item = ({
-  key,
+  id,
   name,
   description,
   price,
@@ -13,10 +13,10 @@ const Item = ({
   onDeleteClick,
 }) => {
   const onEditClickHandler = () => {
-    onEditClick(key);
+    onEditClick(id);
   };
   const onDeleteClickHandler = () => {
-    onDeleteClick(key);
+    onDeleteClick(id);
   };
   return (
     <div>
@@ -42,6 +42,7 @@ const Item = ({
 };
 
 Item.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
