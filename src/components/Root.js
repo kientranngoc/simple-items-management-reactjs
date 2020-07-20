@@ -21,7 +21,7 @@ const Root = ({ isLoggedIn }) => (
       <Route exact path="/signin">
         {isLoggedIn ? <Redirect to="/" /> : <Signin />}
       </Route>
-      <Route exact path="/category/:id" component={CategoryDetail} />
+      <Route exact path="/categories/:id" component={CategoryDetail} />
       <Route exact path="/" component={Home} />
       <Route render={() => <Redirect to="/" />} />
     </Switch>

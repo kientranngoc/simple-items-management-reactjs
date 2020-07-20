@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Category = ({ name, description, created, updated }) => {
+const Category = ({ name, description, url, created, updated }) => {
   return (
     <div>
-      <h2>{name}</h2>
+      <h2>
+        <Link to={url}>{name}</Link>
+      </h2>
       <span>{description}</span>
       <br />
       <span>{created}</span>
@@ -17,6 +20,7 @@ const Category = ({ name, description, created, updated }) => {
 Category.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
   updated: PropTypes.string.isRequired,
 };

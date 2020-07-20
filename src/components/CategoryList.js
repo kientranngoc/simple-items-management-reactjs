@@ -7,6 +7,7 @@ const CategoryList = ({ categories }) => {
     return categories.map((category) => (
       <Category
         key={category.id}
+        url={`/categories/${category.id}`}
         name={category.name}
         description={category.description}
         created={category.created}
