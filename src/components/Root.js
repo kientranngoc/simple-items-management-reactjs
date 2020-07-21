@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-} from "react-router-dom";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import Home from "./Home";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import CategoryDetail from "./CategoryDetail";
+} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import Home from './Home';
+import Signup from './Signup';
+import Signin from './Signin';
+import CategoryDetail from './CategoryDetail';
 
 const Root = ({ isLoggedIn }) => (
   <Router>

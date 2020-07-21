@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import UserPanelContainer from "./UserPanelContainer";
-import ItemList from "./ItemList";
-import AddItemFormContainer from "./AddItemFormContainer";
-import { fetchCategory } from "../actions/category";
-import { fetchItems, deleteItem } from "../actions/item";
-import EditItemModal from "./EditItemModal";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import UserPanelContainer from './UserPanelContainer';
+import ItemList from './ItemList';
+import AddItemFormContainer from './AddItemFormContainer';
+import { fetchCategory } from '../actions/category';
+import { fetchItems, deleteItem } from '../actions/item';
+import EditItemModal from './EditItemModal';
 
 class CategoryDetail extends React.Component {
   state = {
@@ -15,6 +15,7 @@ class CategoryDetail extends React.Component {
     activeModal: null,
     activeItem: null,
   };
+
   // Class Properties , required for binding bind a function to a component instance
   onModelClose = () => {
     this.setState((state) => ({
@@ -23,13 +24,15 @@ class CategoryDetail extends React.Component {
       activeItem: null,
     }));
   };
+
   onEditClick = (itemId) => {
     this.setState((state) => ({
       ...state,
-      activeModal: "editItemModal",
+      activeModal: 'editItemModal',
       activeItem: state.items.filter((item) => item.id === itemId)[0],
     }));
   };
+
   onDeleteClick = (itemId) => {
     const categoryId = this.props.match.params.id;
     this.props
@@ -43,24 +46,21 @@ class CategoryDetail extends React.Component {
         }
       });
   };
+
   onUpdateItemSuccess = (updatedItem) => {
-    this.setState((state) => {
-      return {
-        ...state,
-        items: state.items.map((item) =>
-          item.id === updatedItem.id ? updatedItem : item
-        ),
-      };
-    });
+    this.setState((state) => ({
+      ...state,
+      items: state.items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
+    }));
   };
+
   onAddItemSuccess = (item) => {
-    this.setState((state) => {
-      return {
-        ...state,
-        items: [...state.items, item],
-      };
-    });
+    this.setState((state) => ({
+      ...state,
+      items: [...state.items, item],
+    }));
   };
+
   componentDidMount() {
     const categoryId = this.props.match.params.id;
     if (categoryId > 0) {
@@ -83,9 +83,12 @@ class CategoryDetail extends React.Component {
         });
     }
   }
+
   render() {
     const categoryId = parseInt(this.props.match.params.id);
-    const { id, name, description, price } = this.state.activeItem || {
+    const {
+      id, name, description, price,
+    } = this.state.activeItem || {
       id: null,
       name: null,
       description: null,
@@ -94,14 +97,14 @@ class CategoryDetail extends React.Component {
     return (
       <div>
         <UserPanelContainer />
-        <h1>{this.state.category ? this.state.category.name : ""}</h1>
+        <h1>{this.state.category ? this.state.category.name : ''}</h1>
         {this.props.accessToken ? (
           <AddItemFormContainer
             onAddItemSuccess={this.onAddItemSuccess}
             categoryId={categoryId}
           />
         ) : (
-          ""
+          ''
         )}
         <ItemList
           items={this.state.items}

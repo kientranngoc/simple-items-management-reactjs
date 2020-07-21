@@ -1,16 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import EditItemForm from "./EditItemForm";
-import { updateItem } from "../actions/item";
+import React from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import EditItemForm from './EditItemForm';
+import { updateItem } from '../actions/item';
 
 class EditItemFormContainer extends React.Component {
   state = {
-    message: "",
+    message: '',
   };
+
   resetMessage = () => {
-    this.setState({ message: "" });
+    this.setState({ message: '' });
   };
+
   // Class Properties , required for binding bind a function to a component instance
   onSubmit = (event) => {
     event.preventDefault();
@@ -27,26 +29,28 @@ class EditItemFormContainer extends React.Component {
           const { onUpdateItemSuccess } = this.props;
           onUpdateItemSuccess(response.result.data);
         } else {
-          const error = response.error;
+          const { error } = response;
           if (
-            error &&
-            error.response &&
-            error.response.data &&
-            error.response.data.message
+            error
+            && error.response
+            && error.response.data
+            && error.response.data.message
           ) {
             const messages = Object.values(error.response.data.message).map(
-              (value) => value[0]
+              (value) => value[0],
             );
-            this.setState({ message: messages.join(" ") });
+            this.setState({ message: messages.join(' ') });
           } else {
-            this.setState({ message: "Something went wrong" });
+            this.setState({ message: 'Something went wrong' });
           }
         }
       });
   };
+
   onChange = () => {
     this.resetMessage();
   };
+
   render() {
     if (this.props.accessToken) {
       return (
@@ -59,9 +63,8 @@ class EditItemFormContainer extends React.Component {
           price={this.props.price}
         />
       );
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

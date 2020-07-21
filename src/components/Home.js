@@ -1,16 +1,17 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import UserPanelContainer from "./UserPanelContainer";
-import CategoryList from "./CategoryList";
-import { getCurrentUser } from "../actions/user";
-import { fetchCategories } from "../actions/category";
-import { storeCurrentUser } from "../libs/utils/auth";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import UserPanelContainer from './UserPanelContainer';
+import CategoryList from './CategoryList';
+import { getCurrentUser } from '../actions/user';
+import { fetchCategories } from '../actions/category';
+import { storeCurrentUser } from '../libs/utils/auth';
 
 class Home extends React.Component {
   state = {
     categories: [],
   };
+
   componentDidMount() {
     if (this.props.accessToken) {
       this.props.getCurrentUser(this.props.accessToken).then((response) => {
@@ -24,6 +25,7 @@ class Home extends React.Component {
       this.setState({ categories: response.result.data.categories });
     });
   }
+
   render() {
     return (
       <div>
@@ -44,5 +46,5 @@ const mapStateToProps = ({ user }) => ({
   accessToken: user.accessToken,
 });
 export default connect(mapStateToProps, { getCurrentUser, fetchCategories })(
-  Home
+  Home,
 );

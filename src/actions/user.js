@@ -3,15 +3,15 @@ import {
   SIGNUP as SIGNUP_ACTION,
   LOGOUT as LOGOUT_ACTION,
   GET_CURRENT_USER as GET_CURRENT_USER_ACTION,
-} from "../constants/actions";
+} from '../constants/actions';
 import {
   SIGNIN as SIGNIN_ENDPOINT,
   SINGUP as SIGNUP_ENDPOINT,
   GET_CURRENT_USER as GET_CURRENT_USER_ENDPOINT,
-} from "../constants/endpoints";
-import { post, get } from "../libs/utils/api";
+} from '../constants/endpoints';
+import { post, get } from '../libs/utils/api';
 
-const baseHeaders = { "content-type": "application/json" };
+const baseHeaders = { 'content-type': 'application/json' };
 
 export const signup = (payload) => ({
   type: SIGNUP_ACTION,

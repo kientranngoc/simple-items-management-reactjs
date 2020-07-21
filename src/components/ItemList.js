@@ -1,8 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Item from "./Item";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Item from './Item';
 
-const ItemList = ({ items, userId, onEditClick, onDeleteClick }) => {
+const ItemList = ({
+  items, userId, onEditClick, onDeleteClick,
+}) => {
   if (items) {
     return (
       <div>
@@ -23,9 +25,8 @@ const ItemList = ({ items, userId, onEditClick, onDeleteClick }) => {
         ))}
       </div>
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
 ItemList.propTypes = {

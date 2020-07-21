@@ -1,22 +1,24 @@
-import React from "react";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import AddItemForm from "./AddItemForm";
-import { addItem } from "../actions/item";
+import React from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import AddItemForm from './AddItemForm';
+import { addItem } from '../actions/item';
 
 class AddItemFormContainer extends React.Component {
   state = {
-    message: "",
+    message: '',
   };
+
   resetMessage = () => {
-    this.setState({ message: "" });
+    this.setState({ message: '' });
   };
+
   // Class Properties , required for binding bind a function to a component instance
   onSubmit = (event) => {
     event.preventDefault();
     this.resetMessage();
-    const accessToken = this.props.accessToken;
-    const categoryId = this.props.categoryId;
+    const { accessToken } = this.props;
+    const { categoryId } = this.props;
     this.props
       .addItem(accessToken, categoryId, {
         name: event.target.name.value,
@@ -28,26 +30,28 @@ class AddItemFormContainer extends React.Component {
           const { onAddItemSuccess } = this.props;
           onAddItemSuccess(response.result.data);
         } else {
-          const error = response.error;
+          const { error } = response;
           if (
-            error &&
-            error.response &&
-            error.response.data &&
-            error.response.data.message
+            error
+            && error.response
+            && error.response.data
+            && error.response.data.message
           ) {
             const messages = Object.values(error.response.data.message).map(
-              (value) => value[0]
+              (value) => value[0],
             );
-            this.setState({ message: messages.join(" ") });
+            this.setState({ message: messages.join(' ') });
           } else {
-            this.setState({ message: "Something went wrong" });
+            this.setState({ message: 'Something went wrong' });
           }
         }
       });
   };
+
   onChange = () => {
     this.resetMessage();
   };
+
   render() {
     if (this.props.accessToken) {
       return (
@@ -57,9 +61,8 @@ class AddItemFormContainer extends React.Component {
           onSubmit={this.onSubmit}
         />
       );
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

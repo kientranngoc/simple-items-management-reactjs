@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Item = ({
   id,
@@ -35,7 +35,7 @@ const Item = ({
           <button onClick={onDeleteClickHandler}>Delete</button>
         </>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

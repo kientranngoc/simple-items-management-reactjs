@@ -3,8 +3,8 @@ import {
   SIGNUP_SUCCESS,
   LOGOUT,
   GET_CURRENT_USER_SUCCESS,
-} from "../constants/actions";
-import { isLoggedIn, getToken, getCurrentUser } from "../libs/utils/auth";
+} from '../constants/actions';
+import { isLoggedIn, getToken, getCurrentUser } from '../libs/utils/auth';
 
 const INITIAL_STATE = {
   isLoggedIn: isLoggedIn(),

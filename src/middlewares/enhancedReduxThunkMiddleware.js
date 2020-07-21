@@ -1,11 +1,11 @@
-const _SUCCESS = "_SUCCESS";
-const _FAILURE = "_FAILURE";
+const _SUCCESS = '_SUCCESS';
+const _FAILURE = '_FAILURE';
 
 const enhancedReduxThunkMiddleware = ({ dispatch, getState }) => (
-  next
+  next,
 ) => async (action) => {
   // Thunk action
-  if (typeof action === "function") {
+  if (typeof action === 'function') {
     return action(dispatch, getState);
   }
   // Normal action
