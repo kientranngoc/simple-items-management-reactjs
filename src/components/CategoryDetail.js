@@ -6,14 +6,30 @@ import ItemList from "./ItemList";
 import AddItemFormContainer from "./AddItemFormContainer";
 import { fetchCategory } from "../actions/category";
 import { fetchItems, deleteItem } from "../actions/item";
+import EditItemModal from "./EditItemModal";
 
 class CategoryDetail extends React.Component {
   state = {
     category: null,
     items: [],
+    activeModal: null,
+    activeItem: null,
   };
   // Class Properties , required for binding bind a function to a component instance
-  onEditClick = (itemId) => {};
+  onModelClose = () => {
+    this.setState((state) => ({
+      ...state,
+      activeModal: null,
+      activeItem: null,
+    }));
+  };
+  onEditClick = (itemId) => {
+    this.setState((state) => ({
+      ...state,
+      activeModal: "editItemModal",
+      activeItem: state.items.filter((item) => item.id === itemId)[0],
+    }));
+  };
   onDeleteClick = (itemId) => {
     const categoryId = this.props.match.params.id;
     this.props
@@ -26,6 +42,16 @@ class CategoryDetail extends React.Component {
           }));
         }
       });
+  };
+  onUpdateItemSuccess = (updatedItem) => {
+    this.setState((state) => {
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.id === updatedItem.id ? updatedItem : item
+        ),
+      };
+    });
   };
   onAddItemSuccess = (item) => {
     this.setState((state) => {
@@ -58,14 +84,21 @@ class CategoryDetail extends React.Component {
     }
   }
   render() {
+    const categoryId = parseInt(this.props.match.params.id);
+    const { id, name, description, price } = this.state.activeItem || {
+      id: null,
+      name: null,
+      description: null,
+      price: null,
+    };
     return (
       <div>
         <UserPanelContainer />
         <h1>{this.state.category ? this.state.category.name : ""}</h1>
-        {this.state.category ? (
+        {this.props.accessToken ? (
           <AddItemFormContainer
             onAddItemSuccess={this.onAddItemSuccess}
-            categoryId={this.state.category.id}
+            categoryId={categoryId}
           />
         ) : (
           ""
@@ -75,6 +108,16 @@ class CategoryDetail extends React.Component {
           userId={this.props.userId}
           onEditClick={this.onEditClick}
           onDeleteClick={this.onDeleteClick}
+        />
+        <EditItemModal
+          activeModal={this.state.activeModal}
+          onClose={this.onModelClose}
+          categoryId={categoryId}
+          itemId={id}
+          name={name}
+          description={description}
+          price={price}
+          onUpdateItemSuccess={this.onUpdateItemSuccess}
         />
       </div>
     );
