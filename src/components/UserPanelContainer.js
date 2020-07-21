@@ -9,8 +9,8 @@ class UserPanelContainer extends React.Component {
   // Class Properties , required for binding bind a function to a component instance
   onLogoutClick = (event) => {
     event.preventDefault();
-    this.props.logout();
     removeAuth();
+    this.props.logout();
   };
   render() {
     return (

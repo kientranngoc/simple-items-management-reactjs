@@ -15,7 +15,12 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOGOUT: {
-      return { ...INITIAL_STATE, isLoggedIn: false };
+      return {
+        ...INITIAL_STATE,
+        isLoggedIn: false,
+        accessToken: null,
+        info: null,
+      };
     }
 
     case SIGNIN_SUCCESS: {
