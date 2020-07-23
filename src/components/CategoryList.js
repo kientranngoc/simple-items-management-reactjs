@@ -20,10 +20,23 @@ const CategoryList = ({ categories }) => {
       </div>
     );
   }
+  return null;
 };
 
 CategoryList.propTypes = {
-  categories: PropTypes.array,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+      updated: PropTypes.string.isRequired,
+    }),
+  ),
+};
+
+CategoryList.defaultProps = {
+  categories: [],
 };
 
 export default CategoryList;

@@ -3,16 +3,16 @@ import { getData, storeData, removeData } from './dataSource';
 const TOKEN = 'access_token';
 const CURRENT_USER = 'current_user';
 
-export const isLoggedIn = () => {
-  const token = getToken();
-  if (token) return true;
-  return false;
-};
-
 export const getToken = () => getData(TOKEN);
 
 export const setToken = (token) => {
   storeData(TOKEN, token);
+};
+
+export const isLoggedIn = () => {
+  const token = getToken();
+  if (token) return true;
+  return false;
 };
 
 export const getCurrentUser = () => getData(CURRENT_USER);

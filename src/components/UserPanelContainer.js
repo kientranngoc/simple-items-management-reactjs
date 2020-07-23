@@ -10,14 +10,16 @@ class UserPanelContainer extends React.Component {
   onLogoutClick = (event) => {
     event.preventDefault();
     removeAuth();
-    this.props.logout();
+    const { props } = this;
+    props.logout();
   };
 
   render() {
+    const { isLoggedIn, info } = this.props;
     return (
       <UserPanel
-        isLoggedIn={this.props.isLoggedIn}
-        name={this.props.info ? this.props.info.name : ''}
+        isLoggedIn={isLoggedIn}
+        name={info ? info.name : ''}
         onLogoutClick={this.onLogoutClick}
       />
     );
@@ -25,9 +27,15 @@ class UserPanelContainer extends React.Component {
 }
 
 UserPanelContainer.propTypes = {
-  info: PropTypes.object,
+  info: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
   isLoggedIn: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
+};
+
+UserPanelContainer.defaultProps = {
+  info: null,
 };
 
 const mapStateToProps = ({ user }) => ({

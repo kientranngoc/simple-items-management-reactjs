@@ -6,20 +6,28 @@ const SignupForm = ({ message, onChange, onSubmit }) => (
     <span>{message}</span>
     <form onSubmit={onSubmit}>
       <div>
-        <label htmlFor="name">Name</label>
-        <input id="name" type="text" onChange={onChange} />
+        <label htmlFor="name">
+          Name
+          <input id="name" type="text" onChange={onChange} />
+        </label>
       </div>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="email" onChange={onChange} />
+        <label htmlFor="email">
+          Email
+          <input id="email" type="email" onChange={onChange} />
+        </label>
       </div>
       <div>
-        <label htmlFor="username">Username</label>
-        <input id="username" type="text" onChange={onChange} />
+        <label htmlFor="username">
+          Username
+          <input id="username" type="text" onChange={onChange} />
+        </label>
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" onChange={onChange} />
+        <label htmlFor="password">
+          Password
+          <input id="password" type="password" onChange={onChange} />
+        </label>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -28,8 +36,12 @@ const SignupForm = ({ message, onChange, onSubmit }) => (
 
 SignupForm.propTypes = {
   message: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+};
+
+SignupForm.defaultProps = {
+  message: '',
 };
 
 export default SignupForm;

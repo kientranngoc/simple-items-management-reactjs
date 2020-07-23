@@ -6,12 +6,16 @@ const SigninForm = ({ message, onChange, onSubmit }) => (
     <span>{message}</span>
     <form onSubmit={onSubmit}>
       <div>
-        <label htmlFor="username">Username</label>
-        <input id="username" type="text" onChange={onChange} />
+        <label htmlFor="username">
+          Username
+          <input id="username" type="text" onChange={onChange} />
+        </label>
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" onChange={onChange} />
+        <label htmlFor="password">
+          Password
+          <input id="password" type="password" onChange={onChange} />
+        </label>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -20,8 +24,12 @@ const SigninForm = ({ message, onChange, onSubmit }) => (
 
 SigninForm.propTypes = {
   message: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+};
+
+SigninForm.defaultProps = {
+  message: '',
 };
 
 export default SigninForm;

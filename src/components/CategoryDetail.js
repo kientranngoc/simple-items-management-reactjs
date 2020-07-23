@@ -9,12 +9,39 @@ import { fetchItems, deleteItem } from '../actions/item';
 import EditItemModal from './EditItemModal';
 
 class CategoryDetail extends React.Component {
-  state = {
-    category: null,
-    items: [],
-    activeModal: null,
-    activeItem: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      category: null,
+      items: [],
+      activeModal: null,
+      activeItem: null,
+    };
+  }
+
+  componentDidMount() {
+    const { props } = this;
+    const categoryId = props.match.params.id;
+    if (categoryId > 0) {
+      props.fetchCategory(categoryId).then((response) => {
+        if (response.success) {
+          this.setState((state) => ({
+            ...state,
+            category: response.result.data,
+          }));
+        }
+      });
+      // TODO: Pagination
+      props
+        .fetchItems(categoryId, { offset: 0, limit: 100 })
+        .then((response) => {
+          this.setState((state) => ({
+            ...state,
+            items: response.result.data.items,
+          }));
+        });
+    }
+  }
 
   // Class Properties , required for binding bind a function to a component instance
   onModelClose = () => {
@@ -34,23 +61,24 @@ class CategoryDetail extends React.Component {
   };
 
   onDeleteClick = (itemId) => {
-    const categoryId = this.props.match.params.id;
-    this.props
-      .deleteItem(this.props.accessToken, categoryId, itemId)
-      .then((response) => {
-        if (response.success) {
-          this.setState((state) => ({
-            ...state,
-            items: state.items.filter((item) => item.id !== itemId),
-          }));
-        }
-      });
+    const { props } = this;
+    const categoryId = parseInt(props.match.params.id, 10);
+    props.deleteItem(props.accessToken, categoryId, itemId).then((response) => {
+      if (response.success) {
+        this.setState((state) => ({
+          ...state,
+          items: state.items.filter((item) => item.id !== itemId),
+        }));
+      }
+    });
   };
 
   onUpdateItemSuccess = (updatedItem) => {
     this.setState((state) => ({
       ...state,
-      items: state.items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
+      items: state.items.map((item) =>
+        item.id === updatedItem.id ? updatedItem : item
+      ),
     }));
   };
 
@@ -61,34 +89,10 @@ class CategoryDetail extends React.Component {
     }));
   };
 
-  componentDidMount() {
-    const categoryId = this.props.match.params.id;
-    if (categoryId > 0) {
-      this.props.fetchCategory(categoryId).then((response) => {
-        if (response.success) {
-          this.setState((state) => ({
-            ...state,
-            category: response.result.data,
-          }));
-        }
-      });
-      // TODO: Pagination
-      this.props
-        .fetchItems(categoryId, { offset: 0, limit: 100 })
-        .then((response) => {
-          this.setState((state) => ({
-            ...state,
-            items: response.result.data.items,
-          }));
-        });
-    }
-  }
-
   render() {
-    const categoryId = parseInt(this.props.match.params.id);
-    const {
-      id, name, description, price,
-    } = this.state.activeItem || {
+    const { props, state } = this;
+    const categoryId = parseInt(props.match.params.id, 10);
+    const { id, name, description, price } = state.activeItem || {
       id: null,
       name: null,
       description: null,
@@ -97,8 +101,8 @@ class CategoryDetail extends React.Component {
     return (
       <div>
         <UserPanelContainer />
-        <h1>{this.state.category ? this.state.category.name : ''}</h1>
-        {this.props.accessToken ? (
+        <h1>{state.category ? state.category.name : ''}</h1>
+        {props.accessToken ? (
           <AddItemFormContainer
             onAddItemSuccess={this.onAddItemSuccess}
             categoryId={categoryId}
@@ -107,13 +111,13 @@ class CategoryDetail extends React.Component {
           ''
         )}
         <ItemList
-          items={this.state.items}
-          userId={this.props.userId}
+          items={state.items}
+          userId={props.userId}
           onEditClick={this.onEditClick}
           onDeleteClick={this.onDeleteClick}
         />
         <EditItemModal
-          activeModal={this.state.activeModal}
+          activeModal={state.activeModal}
           onClose={this.onModelClose}
           categoryId={categoryId}
           itemId={id}
@@ -130,10 +134,19 @@ class CategoryDetail extends React.Component {
 CategoryDetail.propTypes = {
   accessToken: PropTypes.string,
   userId: PropTypes.number,
-  match: PropTypes.object.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
   fetchCategory: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
+};
+
+CategoryDetail.defaultProps = {
+  accessToken: null,
+  userId: null,
 };
 
 const mapStateToProps = ({ user }) => ({

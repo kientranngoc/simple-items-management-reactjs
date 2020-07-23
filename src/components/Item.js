@@ -31,8 +31,12 @@ const Item = ({
       <br />
       {isOwner ? (
         <>
-          <button onClick={onEditClickHandler}>Edit</button>
-          <button onClick={onDeleteClickHandler}>Delete</button>
+          <button type="button" onClick={onEditClickHandler}>
+            Edit
+          </button>
+          <button type="button" onClick={onDeleteClickHandler}>
+            Delete
+          </button>
         </>
       ) : (
         ''

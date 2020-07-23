@@ -5,9 +5,12 @@ import EditItemForm from './EditItemForm';
 import { updateItem } from '../actions/item';
 
 class EditItemFormContainer extends React.Component {
-  state = {
-    message: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+    };
+  }
 
   resetMessage = () => {
     this.setState({ message: '' });
@@ -17,8 +20,11 @@ class EditItemFormContainer extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     this.resetMessage();
-    const { accessToken, categoryId, itemId } = this.props;
-    this.props
+    const { props } = this;
+    const {
+      accessToken, categoryId, itemId, onUpdateItemSuccess,
+    } = props;
+    props
       .updateItem(accessToken, categoryId, itemId, {
         name: event.target.name.value,
         description: event.target.description.value,
@@ -26,7 +32,6 @@ class EditItemFormContainer extends React.Component {
       })
       .then((response) => {
         if (response.success) {
-          const { onUpdateItemSuccess } = this.props;
           onUpdateItemSuccess(response.result.data);
         } else {
           const { error } = response;
@@ -52,15 +57,19 @@ class EditItemFormContainer extends React.Component {
   };
 
   render() {
-    if (this.props.accessToken) {
+    const { message } = this.state;
+    const {
+      accessToken, name, description, price,
+    } = this.props;
+    if (accessToken) {
       return (
         <EditItemForm
-          message={this.state.message}
+          message={message}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
-          name={this.props.name}
-          description={this.props.description}
-          price={this.props.price}
+          name={name}
+          description={description}
+          price={price}
         />
       );
     }
@@ -78,6 +87,15 @@ EditItemFormContainer.propTypes = {
   description: PropTypes.string,
   price: PropTypes.number,
 };
+
+EditItemFormContainer.defaultProps = {
+  itemId: null,
+  accessToken: null,
+  name: '',
+  description: '',
+  price: 0,
+};
+
 const mapStateToProps = ({ user }) => ({
   accessToken: user.accessToken,
 });

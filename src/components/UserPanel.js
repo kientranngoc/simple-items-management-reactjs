@@ -10,7 +10,9 @@ const UserPanel = ({ isLoggedIn, name, onLogoutClick }) => (
           Name:
           {name}
         </span>
-        <button onClick={onLogoutClick}>Logout</button>
+        <button type="button" onClick={onLogoutClick}>
+          Logout
+        </button>
       </div>
     ) : (
       <div>
@@ -26,6 +28,10 @@ UserPanel.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   name: PropTypes.string,
   onLogoutClick: PropTypes.func.isRequired,
+};
+
+UserPanel.defaultProps = {
+  name: '',
 };
 
 export default UserPanel;

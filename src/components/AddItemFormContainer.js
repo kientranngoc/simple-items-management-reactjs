@@ -5,9 +5,12 @@ import AddItemForm from './AddItemForm';
 import { addItem } from '../actions/item';
 
 class AddItemFormContainer extends React.Component {
-  state = {
-    message: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+    };
+  }
 
   resetMessage = () => {
     this.setState({ message: '' });
@@ -17,9 +20,9 @@ class AddItemFormContainer extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     this.resetMessage();
-    const { accessToken } = this.props;
-    const { categoryId } = this.props;
-    this.props
+    const { props } = this;
+    const { accessToken, categoryId, onAddItemSuccess } = props;
+    props
       .addItem(accessToken, categoryId, {
         name: event.target.name.value,
         description: event.target.description.value,
@@ -27,7 +30,6 @@ class AddItemFormContainer extends React.Component {
       })
       .then((response) => {
         if (response.success) {
-          const { onAddItemSuccess } = this.props;
           onAddItemSuccess(response.result.data);
         } else {
           const { error } = response;
@@ -53,10 +55,12 @@ class AddItemFormContainer extends React.Component {
   };
 
   render() {
-    if (this.props.accessToken) {
+    const { accessToken } = this.props;
+    const { message } = this.state;
+    if (accessToken) {
       return (
         <AddItemForm
-          message={this.state.message}
+          message={message}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
         />
@@ -72,6 +76,10 @@ AddItemFormContainer.propTypes = {
   categoryId: PropTypes.number.isRequired,
   accessToken: PropTypes.string,
 };
+AddItemFormContainer.defaultProps = {
+  accessToken: null,
+};
+
 const mapStateToProps = ({ user }) => ({
   accessToken: user.accessToken,
 });

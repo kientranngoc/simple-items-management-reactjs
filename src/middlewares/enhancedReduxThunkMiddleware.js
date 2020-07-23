@@ -1,5 +1,5 @@
-const _SUCCESS = '_SUCCESS';
-const _FAILURE = '_FAILURE';
+const SUCCESS = '_SUCCESS';
+const FAILURE = '_FAILURE';
 
 const enhancedReduxThunkMiddleware = ({ dispatch, getState }) => (
   next,
@@ -8,10 +8,7 @@ const enhancedReduxThunkMiddleware = ({ dispatch, getState }) => (
   if (typeof action === 'function') {
     return action(dispatch, getState);
   }
-  // Normal action
-  if (!action.promise) {
-    return next(action);
-  }
+
   // Promise action
   const { type, payload, promise } = action;
   next({ type, payload });
@@ -19,18 +16,21 @@ const enhancedReduxThunkMiddleware = ({ dispatch, getState }) => (
     try {
       const result = await promise;
       next({
-        type: type + _SUCCESS,
+        type: type + SUCCESS,
         payload: result,
       });
       return { success: true, result };
     } catch (error) {
       next({
-        type: type + _FAILURE,
+        type: type + FAILURE,
         payload: error,
       });
       return { success: false, error };
     }
   }
+
+  // Normal action
+  return next(action);
 };
 
 export default enhancedReduxThunkMiddleware;

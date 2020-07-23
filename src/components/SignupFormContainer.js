@@ -6,19 +6,19 @@ import { signup } from '../actions/user';
 import { setToken } from '../libs/utils/auth';
 
 class SignupFormContainer extends React.Component {
-  state = {
-    message: '',
-  };
-
-  resetMessage() {
-    this.setState({ message: '' });
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+    };
   }
 
   // Class Properties , required for binding bind a function to a component instance
   onSubmit = (event) => {
     event.preventDefault();
     this.resetMessage();
-    this.props
+    const { props } = this;
+    props
       .signup({
         name: event.target.name.value,
         email: event.target.email.value,
@@ -53,10 +53,15 @@ class SignupFormContainer extends React.Component {
     this.resetMessage();
   };
 
+  resetMessage() {
+    this.setState({ message: '' });
+  }
+
   render() {
+    const { message } = this.state;
     return (
       <SignupForm
-        message={this.state.message}
+        message={message}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
       />

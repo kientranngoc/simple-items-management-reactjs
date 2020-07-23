@@ -8,30 +8,35 @@ import { fetchCategories } from '../actions/category';
 import { storeCurrentUser } from '../libs/utils/auth';
 
 class Home extends React.Component {
-  state = {
-    categories: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+    };
+  }
 
   componentDidMount() {
-    if (this.props.accessToken) {
-      this.props.getCurrentUser(this.props.accessToken).then((response) => {
+    const { props } = this;
+    if (props.accessToken) {
+      props.getCurrentUser(props.accessToken).then((response) => {
         if (response.success) {
           storeCurrentUser(response.result.data);
         }
       });
     }
     // TODO: Pagination
-    this.props.fetchCategories({ offset: 0, limit: 100 }).then((response) => {
+    props.fetchCategories({ offset: 0, limit: 100 }).then((response) => {
       this.setState({ categories: response.result.data.categories });
     });
   }
 
   render() {
+    const { categories } = this.state;
     return (
       <div>
         <UserPanelContainer />
         <h1>Home page</h1>
-        <CategoryList categories={this.state.categories} />
+        <CategoryList categories={categories} />
       </div>
     );
   }
@@ -40,6 +45,11 @@ class Home extends React.Component {
 Home.propTypes = {
   accessToken: PropTypes.string,
   getCurrentUser: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
+};
+
+Home.defaultProps = {
+  accessToken: null,
 };
 
 const mapStateToProps = ({ user }) => ({

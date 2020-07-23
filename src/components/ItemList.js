@@ -30,10 +30,25 @@ const ItemList = ({
 };
 
 ItemList.propTypes = {
-  items: PropTypes.array,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      created: PropTypes.string.isRequired,
+      updated: PropTypes.string.isRequired,
+      user_id: PropTypes.number.isRequired,
+    }),
+  ),
   userId: PropTypes.number,
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+};
+
+ItemList.defaultProps = {
+  items: [],
+  userId: null,
 };
 
 export default ItemList;
