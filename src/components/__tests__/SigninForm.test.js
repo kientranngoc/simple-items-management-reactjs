@@ -2,10 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import SigninForm from '../SigninForm';
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 const onChange = jest.fn((event) => event.target.value)
 const onSubmit = jest.fn((event) => event.target.value)
 const message = 'message'
@@ -45,7 +41,7 @@ it('triggers username onChange event', () => {
 it('triggers password onChange event', () => {
   const wrapper = shallow(<SigninForm onChange={onChange} onSubmit={onSubmit} />);
   const mockEvent = { target: {value: ''} }
-  wrapper.find('#username').simulate('change', mockEvent)
+  wrapper.find('#password').simulate('change', mockEvent)
   expect(onChange.mock.calls.length).toBe(1)
   expect(onChange.mock.results[0].value).toBe('')
 })
