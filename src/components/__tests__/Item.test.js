@@ -77,3 +77,17 @@ it('not contain any button if it\'s not owner', () => {
   const wrapper = shallow(itemComponent2);
   expect(wrapper.find('button').length).toBe(0)
 })
+
+it('triggers onDeleteClick when clicks on Delete button', () => {
+  const wrapper = shallow(itemComponent);
+  wrapper.find('button').at(1).simulate('click', {})
+  expect(onDeleteClick.mock.calls.length).toBe(1)
+  expect(onDeleteClick.mock.results[0].value).toBe(item.id)
+})
+
+it('triggers onEditClick when clicks on Edit button', () => {
+  const wrapper = shallow(itemComponent);
+  wrapper.find('button').at(0).simulate('click', {})
+  expect(onEditClick.mock.calls.length).toBe(1)
+  expect(onEditClick.mock.results[0].value).toBe(item.id)
+})
