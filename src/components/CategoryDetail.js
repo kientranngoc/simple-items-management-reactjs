@@ -76,9 +76,7 @@ class CategoryDetail extends React.Component {
   onUpdateItemSuccess = (updatedItem) => {
     this.setState((state) => ({
       ...state,
-      items: state.items.map((item) =>
-        item.id === updatedItem.id ? updatedItem : item
-      ),
+      items: state.items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
     }));
   };
 
@@ -92,7 +90,9 @@ class CategoryDetail extends React.Component {
   render() {
     const { props, state } = this;
     const categoryId = parseInt(props.match.params.id, 10);
-    const { id, name, description, price } = state.activeItem || {
+    const {
+      id, name, description, price,
+    } = state.activeItem || {
       id: null,
       name: null,
       description: null,
