@@ -19,7 +19,7 @@ const EditItemForm = ({
           <input
             id="name"
             type="text"
-            defaultValue={name || ''}
+            defaultValue={name}
             onChange={onChange}
           />
         </label>
@@ -30,7 +30,7 @@ const EditItemForm = ({
           <input
             id="description"
             type="text"
-            defaultValue={description || ''}
+            defaultValue={description}
             onChange={onChange}
           />
         </label>
@@ -41,7 +41,7 @@ const EditItemForm = ({
           <input
             id="price"
             type="text"
-            defaultValue={price || ''}
+            defaultValue={price}
             onChange={onChange}
           />
         </label>
