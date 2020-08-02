@@ -5,7 +5,7 @@ import SigninForm from './SigninForm';
 import { signin } from '../actions/user';
 import { setToken } from '../libs/utils/auth';
 
-class SigninFormContainer extends React.Component {
+export class SigninFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
