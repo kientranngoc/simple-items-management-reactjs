@@ -7,7 +7,7 @@ import { getCurrentUser } from '../actions/user';
 import { fetchCategories } from '../actions/category';
 import { storeCurrentUser } from '../libs/utils/auth';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,9 @@ class Home extends React.Component {
     }
     // TODO: Pagination
     props.fetchCategories({ offset: 0, limit: 100 }).then((response) => {
-      this.setState({ categories: response.result.data.categories });
+      if (response.success) {
+        this.setState({ categories: response.result.data.categories });
+      }
     });
   }
 
