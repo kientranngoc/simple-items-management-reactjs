@@ -78,6 +78,7 @@ class CategoryDetail extends React.Component {
       ...state,
       items: state.items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
     }));
+    this.onModelClose()
   };
 
   onAddItemSuccess = (item) => {

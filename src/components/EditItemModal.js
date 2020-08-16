@@ -24,11 +24,6 @@ const EditItemModal = ({
     },
   };
   const modalName = 'editItemModal';
-  const onUpdateItemSuccessHandler = (item) => {
-    // Close modal
-    onClose();
-    onUpdateItemSuccess(item);
-  };
   return (
     <Modal
       isOpen={activeModal === modalName}
@@ -40,7 +35,7 @@ const EditItemModal = ({
         close
       </button>
       <EditItemFormContainer
-        onUpdateItemSuccess={onUpdateItemSuccessHandler}
+        onUpdateItemSuccess={onUpdateItemSuccess}
         categoryId={categoryId}
         itemId={itemId}
         name={name}
