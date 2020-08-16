@@ -37,7 +37,13 @@ it('contains a h2 element', () => {
   expect(wrapper.contains(<h2>Item List</h2>)).toBe(true)
 })
 
-it('contains a 2 Item components', () => {
+it('contains 2 Item components', () => {
   const wrapper = shallow(<ItemList {...props} />);
   expect(wrapper.find('Item').length).toBe(2)
+})
+
+it('contains no Item component if init props is null', () => {
+  const emptyItemsProps = {...props, items: null}
+  const wrapper = shallow(<ItemList {...emptyItemsProps} />);
+  expect(wrapper.find('Item').length).toBe(0)
 })
