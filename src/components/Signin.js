@@ -3,7 +3,7 @@ import SigninFormContainer from './SigninFormContainer';
 
 const Signin = () => (
   <div>
-    <h1>Signup</h1>
+    <h1>Signin</h1>
     <SigninFormContainer />
   </div>
 );
