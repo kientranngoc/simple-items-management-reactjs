@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import EditItemForm from './EditItemForm';
 import { updateItem } from '../actions/item';
 
-class EditItemFormContainer extends React.Component {
+export class EditItemFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
