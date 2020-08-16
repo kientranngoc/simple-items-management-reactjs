@@ -12,7 +12,7 @@ import Signup from './Signup';
 import Signin from './Signin';
 import CategoryDetail from './CategoryDetail';
 
-const Root = ({ isLoggedIn }) => (
+export const Root = ({ isLoggedIn }) => (
   <Router>
     <Switch>
       <Route exact path="/signup">
