@@ -8,7 +8,7 @@ import { fetchCategory } from '../actions/category';
 import { fetchItems, deleteItem } from '../actions/item';
 import EditItemModal from './EditItemModal';
 
-class CategoryDetail extends React.Component {
+export class CategoryDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ class CategoryDetail extends React.Component {
 
   componentDidMount() {
     const { props } = this;
-    const categoryId = props.match.params.id;
+    const categoryId = parseInt(props.match.params.id, 10);
     if (categoryId > 0) {
       props.fetchCategory(categoryId).then((response) => {
         if (response.success) {
@@ -35,10 +35,12 @@ class CategoryDetail extends React.Component {
       props
         .fetchItems(categoryId, { offset: 0, limit: 100 })
         .then((response) => {
-          this.setState((state) => ({
-            ...state,
-            items: response.result.data.items,
-          }));
+          if (response.success) {
+            this.setState((state) => ({
+              ...state,
+              items: response.result.data.items,
+            }));
+          }
         });
     }
   }
