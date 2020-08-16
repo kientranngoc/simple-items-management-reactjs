@@ -5,7 +5,7 @@ import SignupForm from './SignupForm';
 import { signup } from '../actions/user';
 import { setToken } from '../libs/utils/auth';
 
-class SignupFormContainer extends React.Component {
+export class SignupFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
