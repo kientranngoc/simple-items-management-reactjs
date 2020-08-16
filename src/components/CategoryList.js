@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Category from './Category';
 
 const CategoryList = ({ categories }) => {
-  if (categories) {
+  if (categories && categories.length) {
     return (
       <div>
         <h2>Category List</h2>
