@@ -5,7 +5,7 @@ import UserPanel from './UserPanel';
 import { logout } from '../actions/user';
 import { removeAuth } from '../libs/utils/auth';
 
-class UserPanelContainer extends React.Component {
+export class UserPanelContainer extends React.Component {
   // Class Properties , required for binding bind a function to a component instance
   onLogoutClick = (event) => {
     event.preventDefault();
