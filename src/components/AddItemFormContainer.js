@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import AddItemForm from './AddItemForm';
 import { addItem } from '../actions/item';
 
-class AddItemFormContainer extends React.Component {
+export class AddItemFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
